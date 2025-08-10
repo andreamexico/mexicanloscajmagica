@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Enviar SMS</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:100vh;
+      margin:0;
+      background: linear-gradient(180deg,#ffffff 0%, #f2f4f8 100%);
+      color:#111;
+    }
+    .card {
+      width: 95%;
+      max-width:420px;
+      background:#fff;
+      border-radius:12px;
+      box-shadow:0 8px 30px rgba(15,20,40,0.08);
+      padding:28px;
+      text-align:center;
+    }
+    h1 { margin:0 0 12px; font-size:20px; }
+    p { margin:0 0 18px; color:#555; font-size:14px; }
+    .sms-btn {
+      display:inline-block;
+      padding:14px 22px;
+      border-radius:10px;
+      background:#ff3b30;
+      color:#fff;
+      text-decoration:none;
+      font-weight:600;
+      font-size:16px;
+      box-shadow: 0 6px 18px rgba(255,59,48,0.25);
+      border:0;
+      cursor:pointer;
+    }
+    .note {margin-top:14px; font-size:13px; color:#777;}
+    .desktop-warning { margin-top:12px; font-size:13px; color:#b33; display:none; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Enviar un SMS</h1>
+    <p>Haz clic en el botón para abrir tu aplicación de mensajes y enviarme un SMS.</p>
+
+    <!-- Reemplaza el número y el texto del body según necesites -->
+    <!-- Número: +521234567890 (ejemplo con +52 prefijo país). -->
+    <a id="smsLink" class="sms-btn"
+       href="sms:+521234567890?body=Hola%2C%20estoy%20interesado%20en%20el%20producto.">
+      Enviar SMS ahora
+    </a>
+
+    <div id="desktopWarning" class="desktop-warning">
+      Estás en un dispositivo de escritorio: es posible que el enlace de SMS no funcione aquí. Copia el número +521234567890 y envía el SMS desde tu teléfono.
+    </div>
+
+    <div class="note">Número mostrado en el enlace: <strong>+521234567890</strong></div>
+  </div>
+
+  <script>
+    // Detección simple de dispositivo móvil
+    function isMobile() {
+      return /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile/i.test(navigator.userAgent);
+    }
+
+    window.addEventListener('load', function () {
+      const warning = document.getElementById('desktopWarning');
+      const smsLink = document.getElementById('smsLink');
+
+      if (!isMobile()) {
+        // muestra advertencia para escritorio
+        warning.style.display = 'block';
+      }
+
+      // Mejora: para algunos Android se recomienda usar "sms:number?body=..."
+      // ya hemos incluido ese formato en href. Si quieres cambiar el número o mensaje por JS:
+      // smsLink.href = `sms:+521123456789?body=${encodeURIComponent('Hola, quiero info')}`;
+    });
+  </script>
+</body>
+</html>

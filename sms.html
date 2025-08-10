@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Enviar NIP por SMS</title>
+  <title>Enviar SMS</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -25,14 +25,6 @@
     }
     h1 { font-size:20px; margin-bottom:10px; }
     p { font-size:14px; color:#555; margin-bottom:20px; }
-    input {
-      padding:10px;
-      width:90%;
-      font-size:16px;
-      border:1px solid #ccc;
-      border-radius:6px;
-      margin-bottom:15px;
-    }
     .btn {
       display:inline-block;
       padding:12px 20px;
@@ -60,17 +52,15 @@
 <body>
   <div class="container">
     <h1>Enviar NIP por SMS</h1>
-    <p>Escribe tu NIP y presiona el botón para enviarlo por SMS.</p>
-
-    <input type="text" id="nipInput" placeholder="Escribe tu NIP" maxlength="10" />
+    <p>Haz clic en el botón para abrir tu app de mensajes y enviar el NIP.</p>
 
     <a id="smsLink" class="btn" href="#">Enviar SMS</a>
 
     <div id="warning" class="warning">
-      Es posible que el enlace no funcione en PC. Usa tu teléfono para enviar el SMS al 051.
+      Es posible que el enlace no funcione en PC. Usa tu teléfono para enviar el SMS al 051 con el texto "nip".
     </div>
 
-    <div class="note">Número: <strong>051</strong></div>
+    <div class="note">Número: <strong>051</strong> | Mensaje: <strong>nip</strong></div>
   </div>
 
   <script>
@@ -82,26 +72,16 @@
     }
 
     const link = document.getElementById('smsLink');
-    const nipInput = document.getElementById('nipInput');
 
     if (!isMobile()) {
       document.getElementById('warning').style.display = 'block';
-    }
-
-    link.addEventListener('click', function(e) {
-      e.preventDefault();
-      const nip = encodeURIComponent(nipInput.value.trim());
-      if (!nip) {
-        alert("Por favor, escribe tu NIP antes de enviar.");
-        return;
-      }
-
+    } else {
       if (isIOS()) {
-        window.location.href = `sms:051&body=${nip}`;
+        link.href = "sms:051&body=nip"; // formato para iPhone
       } else {
-        window.location.href = `sms:051?body=${nip}`;
+        link.href = "sms:051?body=nip"; // formato para Android
       }
-    });
+    }
   </script>
 </body>
 </html>

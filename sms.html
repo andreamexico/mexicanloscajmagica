@@ -36,11 +36,6 @@
       transition: background 0.3s;
     }
     .btn:hover { background:#0056b3; }
-    .note {
-      font-size:13px;
-      color:#777;
-      margin-top:12px;
-    }
     .warning {
       color:#b33;
       font-size:13px;
@@ -57,13 +52,14 @@
     <a id="smsLink" class="btn" href="#">Enviar SMS</a>
 
     <div id="warning" class="warning">
-      Es posible que el enlace no funcione en PC. Usa tu teléfono para enviar el SMS al 051 con el texto "nip".
+      Es posible que el enlace no funcione en PC. Usa tu teléfono para enviar el SMS.
     </div>
-
-    <div class="note">Número: <strong>051</strong> | Mensaje: <strong>nip</strong></div>
   </div>
 
   <script>
+    const numeroDestino = "051";
+    const mensajeTexto = "nip";
+
     function isMobile() {
       return /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile/i.test(navigator.userAgent);
     }
@@ -77,11 +73,12 @@
       document.getElementById('warning').style.display = 'block';
     } else {
       if (isIOS()) {
-        link.href = "sms:051&body=nip"; // formato para iPhone
+        link.href = `sms:${numeroDestino}&body=${mensajeTexto}`; // iPhone
       } else {
-        link.href = "sms:051?body=nip"; // formato para Android
+        link.href = `sms:${numeroDestino}?body=${mensajeTexto}`; // Android
       }
     }
   </script>
 </body>
 </html>
+

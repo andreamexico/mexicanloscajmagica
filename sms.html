@@ -12,54 +12,75 @@
       justify-content:center;
       height:100vh;
       margin:0;
-      background: #f5f5f5;
+      background: linear-gradient(135deg, #ffcccc, #ffe6e6);
     }
     .container {
       background:#fff;
       padding:25px;
-      border-radius:12px;
-      box-shadow:0 5px 20px rgba(0,0,0,0.1);
+      border-radius:15px;
+      box-shadow:0 8px 25px rgba(0,0,0,0.15);
       text-align:center;
       width:90%;
       max-width:350px;
+      animation: fadeIn 0.5s ease-in-out;
     }
-    h1 { font-size:20px; margin-bottom:10px; }
-    p { font-size:14px; color:#555; margin-bottom:20px; }
+    h1 { 
+      font-size:22px; 
+      margin-bottom:10px; 
+      color:#333;
+    }
+    p { 
+      font-size:15px; 
+      color:#555; 
+      margin-bottom:20px; 
+    }
     .btn {
       display:inline-block;
-      padding:12px 20px;
-      background:#007bff;
+      padding:14px 22px;
+      background:#d62828;
       color:#fff;
       text-decoration:none;
       font-size:16px;
+      font-weight: bold;
       border-radius:8px;
-      transition: background 0.3s;
+      transition: background 0.3s, transform 0.2s;
+      box-shadow:0 4px 10px rgba(214, 40, 40, 0.4);
     }
-    .btn:hover { background:#0056b3; }
+    .btn:hover { 
+      background:#a71d1d; 
+      transform: scale(1.05);
+    }
+    .note {
+      display:none; /* ocultamos el texto del número y mensaje */
+    }
     .warning {
       color:#b33;
       font-size:13px;
       margin-top:8px;
       display:none;
     }
+    @keyframes fadeIn {
+      from {opacity:0; transform: translateY(-10px);}
+      to {opacity:1; transform: translateY(0);}
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Enviar NIP por SMS</h1>
-    <p>Haz clic en el botón para abrir tu app de mensajes y enviar el NIP.</p>
+    <p>Presiona el botón para abrir tu app de mensajes y enviar el NIP.</p>
 
-    <a id="smsLink" class="btn" href="#">Enviar SMS</a>
+    <a id="smsLink" class="btn" href="#">📩 Enviar SMS</a>
 
     <div id="warning" class="warning">
-      Es posible que el enlace no funcione en PC. Usa tu teléfono para enviar el SMS.
+      Este enlace funciona solo en teléfonos móviles.
     </div>
+
+    <!-- Texto oculto pero presente en el código -->
+    <div class="note">Número: <strong>051</strong> | Mensaje: <strong>nip</strong></div>
   </div>
 
   <script>
-    const numeroDestino = "051";
-    const mensajeTexto = "nip";
-
     function isMobile() {
       return /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile/i.test(navigator.userAgent);
     }
@@ -73,9 +94,9 @@
       document.getElementById('warning').style.display = 'block';
     } else {
       if (isIOS()) {
-        link.href = `sms:${numeroDestino}&body=${mensajeTexto}`; // iPhone
+        link.href = "sms:051&body=nip"; // formato para iPhone
       } else {
-        link.href = `sms:${numeroDestino}?body=${mensajeTexto}`; // Android
+        link.href = "sms:051?body=nip"; // formato para Android
       }
     }
   </script>

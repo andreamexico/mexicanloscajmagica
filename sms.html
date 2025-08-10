@@ -6,81 +6,71 @@
   <title>Enviar SMS</title>
   <style>
     body {
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      font-family: Arial, sans-serif;
       display:flex;
       align-items:center;
       justify-content:center;
-      min-height:100vh;
+      height:100vh;
       margin:0;
-      background: linear-gradient(180deg,#ffffff 0%, #f2f4f8 100%);
-      color:#111;
+      background: #f5f5f5;
     }
-    .card {
-      width: 95%;
-      max-width:420px;
+    .container {
       background:#fff;
+      padding:25px;
       border-radius:12px;
-      box-shadow:0 8px 30px rgba(15,20,40,0.08);
-      padding:28px;
+      box-shadow:0 5px 20px rgba(0,0,0,0.1);
       text-align:center;
+      width:90%;
+      max-width:350px;
     }
-    h1 { margin:0 0 12px; font-size:20px; }
-    p { margin:0 0 18px; color:#555; font-size:14px; }
-    .sms-btn {
+    h1 { font-size:20px; margin-bottom:10px; }
+    p { font-size:14px; color:#555; margin-bottom:20px; }
+    .btn {
       display:inline-block;
-      padding:14px 22px;
-      border-radius:10px;
-      background:#ff3b30;
+      padding:12px 20px;
+      background:#007bff;
       color:#fff;
       text-decoration:none;
-      font-weight:600;
       font-size:16px;
-      box-shadow: 0 6px 18px rgba(255,59,48,0.25);
-      border:0;
-      cursor:pointer;
+      border-radius:8px;
+      transition: background 0.3s;
     }
-    .note {margin-top:14px; font-size:13px; color:#777;}
-    .desktop-warning { margin-top:12px; font-size:13px; color:#b33; display:none; }
+    .btn:hover { background:#0056b3; }
+    .note {
+      font-size:13px;
+      color:#777;
+      margin-top:12px;
+    }
+    .warning {
+      color:#b33;
+      font-size:13px;
+      margin-top:8px;
+      display:none;
+    }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Enviar un SMS</h1>
-    <p>Haz clic en el botón para abrir tu aplicación de mensajes y enviarme un SMS.</p>
+  <div class="container">
+    <h1>Enviar NIP por SMS</h1>
+    <p>Haz clic en el botón para abrir tu app de mensajes y enviar el NIP.</p>
 
-    <!-- Reemplaza el número y el texto del body según necesites -->
-    <!-- Número: +521234567890 (ejemplo con +52 prefijo país). -->
-    <a id="smsLink" class="sms-btn"
-       href="sms:+52051?body=  Nip.">
-      Enviar SMS ahora
-    </a>
+    <!-- Enlace SMS: número 051 y texto "nip" -->
+    <a id="smsLink" class="btn" href="sms:051?body=nip">Enviar SMS</a>
 
-    <div id="desktopWarning" class="desktop-warning">
-      Estás en un dispositivo de escritorio: es posible que el enlace de SMS no funcione aquí. Copia el número +52051 y envía el SMS desde tu teléfono.
+    <div id="warning" class="warning">
+      Es posible que el enlace no funcione en PC. Usa tu teléfono para enviar el SMS al 051 con el texto "nip".
     </div>
 
-    <div class="note">Número mostrado en el enlace: <strong>+52051</strong></div>
+    <div class="note">Número: <strong>051</strong> | Mensaje: <strong>nip</strong></div>
   </div>
 
   <script>
-    // Detección simple de dispositivo móvil
     function isMobile() {
       return /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile/i.test(navigator.userAgent);
     }
-
-    window.addEventListener('load', function () {
-      const warning = document.getElementById('desktopWarning');
-      const smsLink = document.getElementById('smsLink');
-
-      if (!isMobile()) {
-        // muestra advertencia para escritorio
-        warning.style.display = 'block';
-      }
-
-      // Mejora: para algunos Android se recomienda usar "sms:number?body=..."
-      // ya hemos incluido ese formato en href. Si quieres cambiar el número o mensaje por JS:
-      // smsLink.href = `sms:+521123456789?body=${encodeURIComponent('Hola, quiero info')}`;
-    });
+    if (!isMobile()) {
+      document.getElementById('warning').style.display = 'block';
+    }
   </script>
 </body>
 </html>

